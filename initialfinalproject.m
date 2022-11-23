@@ -5,6 +5,7 @@ meal = data(:,3);
 nomeat = data(:,6);
 busy = data (:,7);
 dimension = size(data);
+% want to know the total size of our data
 % need to create a while loop which will check the day and create a vector
 % based off of the day
 sunday = [1;
