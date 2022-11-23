@@ -19,16 +19,26 @@ for i = 1:dimension(1,1)
         counter = counter +1;
     end
 end
-function [x,y] = sort(col1,data1,day2)
+
+
+function [x,y] = sort(col1,search,out)
+m = [1;1]
+counter = 1;
 for i = 1:dimension(1,1)
-    if data(i,col1) == day2
+    if data(i,col1) == search
         % when the day is sunday
-        sunday(counter,1) = data(i,4)
-        counter = counter +1;
+        m(counter,1) = data(i,out)
+        counter = counter + 1;
     end
 end
 end
+
+sort(4,1,3)
+
 % ratingavg = sum(rating,dimension(1,1));
 % repeat this function but with a different vector to find the average
+
+
+
 
 
