@@ -11,21 +11,14 @@ dimension = size(data);
 sunday = [1;
     1];
 % initializing sunday matrix
-counter = 1;
-for i = 1:dimension(1,1)
-    if data(i,2) == 1
-        % when the day is sunday
-        sunday(counter,1) = data(i,4)
-        counter = counter +1;
-    end
-end
+sunday = sort(
 
 
-function [x,y] = sort(col1,search,out)
+function [x,y] = sort(column,search,out)
 m = [1;1]
 counter = 1;
 for i = 1:dimension(1,1)
-    if data(i,col1) == search
+    if data(i,column) == search
         % when the day is sunday
         m(counter,1) = data(i,out)
         counter = counter + 1;
