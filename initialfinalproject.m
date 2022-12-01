@@ -10,6 +10,69 @@ dimension = size(data);
 % based off of the day, or other variables
 
 
+brandyTotVec = sart(1,0,4);
+antTotVec = sart(1,1,4);
+
+avgBrandy = sum(brandyTotVec)/size(brandyTotVec,2);
+avgAnt = sum(antTotVec)/size(brandyTotVec,2);
+
+avgsBarVec = [avgBrandy,avgAnt];
+places = categorical({'Brandywine','Anteatery'});
+
+totalAvg = figure;
+title('Total Averages of Mess Halls')
+bar(places,avgsBarVec)
+ylabel('Score (0-5)')
+
+brandySun = sarrtPlaceDay(0,1); 
+brandyMon = sarrtPlaceDay(0,2);
+brandyTue = sarrtPlaceDay(0,3);
+brandyWed = sarrtPlaceDay(0,4);
+brandyThu = sarrtPlaceDay(0,5);
+brandyFri = sarrtPlaceDay(0,6);
+brandySat = sarrtPlaceDay(0,7);
+
+avgBrandyDayVec = [brandySun,brandyMon,brandyTue,brandyWed,brandyThu,brandyFri,brandySat];
+weekCat = categorical({'Sun','Mon','Tue','Wed','Thu','Fri','Sat'}); 
+weekCat = reordercats(weekCat,{'Sun','Mon','Tue','Wed','Thu','Fri','Sat'});
+
+avgDayBrandy = figure;
+title('Averages per Day of Brandywine')
+bar(weekCat,avgBrandyDayVec)
+
+eatSun = sarrtPlaceDay(1,1); 
+eatMon = sarrtPlaceDay(1,2);
+eatTue = sarrtPlaceDay(1,3);
+eatWed = sarrtPlaceDay(1,4);
+eatThu = sarrtPlaceDay(1,5);
+eatFri = sarrtPlaceDay(1,6);
+eatSat = sarrtPlaceDay(1,7);
+avgEatDayVec = [eatSun,eatMon,eatTue,eatWed,eatThu,eatFri,eatSat];
+
+avgDayEat = figure;
+title('Averages per Day of Anteatery')
+bar(weekCat,avgEatDayVec)
+
+brandyBrek = sarrtPlaceMeal(0,0);
+brandyLun = sarrtPlaceMeal(0,1);
+brandyDin = sarrtPlaceMeal(0,2);
+brandyLate = sarrtPlaceMeal(0,3);
+brandyMealsVec = [brandyBrek,brandyLun,brandyDin,brandyLate];
+
+meals = categorical({'Breakfast', 'Lunch', 'Dinner', 'Latenight'});
+meals = reordercats(meals,{'Breakfast', 'Lunch', 'Dinner', 'Latenight'});
+mealAvgBrandy = figure;
+bar(meals, brandyMealsVec)
+
+eatBrek = sarrtPlaceMeal(1,0);
+eatLun = sarrtPlaceMeal(1,1);
+eatDin = sarrtPlaceMeal(1,2);
+eatLate = sarrtPlaceMeal(1,3);
+eatMealsVec = [eatBrek,eatLun,eatDin,eatLate];
+
+mealAvgBrandy = figure;
+bar(meals, eatMealsVec)
+
 function ml = sarrtPlaceMeal(place,meal)
 % the variables to input is the place, 0 being brandywine and 1 being anteatery
 % for the meal 0 is breakfast, 3 being late night
