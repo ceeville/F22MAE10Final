@@ -1,10 +1,10 @@
 clc
-data = readmatrix("initialRAWdata.csv");
+data = readmatrix("initialRAWdata.dat");
 dininghall = data(:,1);
 day = data(:,2);
 meal = data(:,3);
-nomeat = data(:,5);
-busy = data (:,6);
+nomeat = data(:,6);
+busy = data (:,7);
 dimension = size(data);
 [userday, usermeal] = checkday; %prompts user for meal they're gonna eat and what day
 
@@ -77,7 +77,7 @@ dimension = size(dat);
 for i = 1:dimension(1,1)
 % the for loop will continue for the number of rows that the data is long
     if ((dat(i,1) == place)&&(dat(i,3)==meal))&&(dat(i,2)==day)
-        m(counter,1) = dat(i,5);
+        m(counter,1) = dat(i,6);
         % the value of the vegan frendliness rating is added to the matrix if it meets those conditions
         counter = counter + 1;
     end
@@ -96,7 +96,7 @@ dimension = size(dat);
 for i = 1:dimension(1,1)
 % the for loop will continue for the number of rows that the data is long
     if ((dat(i,1) == place)&&(dat(i,3)==meal))&&(dat(i,2)==day)
-        m(counter,1) = dat(i,6);
+        m(counter,1) = dat(i,7);
         % the value of the rating of busyness is added to the matrix if it meets those conditions
         counter = counter + 1;
     end
