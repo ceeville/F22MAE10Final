@@ -8,25 +8,69 @@ dimension = size(data);
 % want to know the total size of our data
 % need to create a while loop which will check the day and create a vector
 % based off of the day
-sunday = [1;
-    1];
-% initializing sunday matrix
-sunday = sort(
 
 
-function [x,y] = sort(column,search,out)
-m = [1;1]
+function ml = sarrtPlaceMeal(place,day,meal)
+data = readmatrix("eat.dat");
+m = [1;1];
 counter = 1;
-for i = 1:dimension(1,1)
-    if data(i,column) == search
-        % when the day is sunday
-        m(counter,1) = data(i,out)
+dim = size(data);
+for i = 1:dim(1,1)
+    if (data(i,1) == place)&&(data(i,3)==meal)
+        m(counter,1) = data(i,4);
         counter = counter + 1;
     end
 end
+ml = sum(m)/size(m,1);
 end
 
-sort(4,1,3)
+
+
+function ml = sarrtPlaceDay(place,day)
+data = readmatrix("eat.dat");
+m = [1;1];
+counter = 1;
+dim = size(data);
+for i = 1:dim(1,1)
+    if (data(i,1) == place)&&(data(i,2)==day)
+        m(counter,1) = data(i,4);
+        counter = counter + 1;
+    end
+end
+ml = sum(m)/size(m,1);
+end
+
+
+function ml = sarrrt(place,day,meal)
+data = readmatrix("eat.dat");
+m = [1;1];
+counter = 1;
+dim = size(data);
+for i = 1:dim(1,1)
+    if (data(i,1) == place)&&(data(i,2)==day)&&(data(i,3)==meal)
+        m(counter,1) = data(i,4);
+        counter = counter + 1;
+    end
+end
+ml = sum(m)/size(m,1);
+end
+
+
+
+function z = sart(col1,search,out)
+data = readmatrix("eat.dat");
+m = [1;1];
+counter = 1;
+dimension = size(data);
+for i = 1:dimension(1,1)
+    if data(i,col1) == search
+        m(counter,1) = data(i,out);
+        counter = counter + 1;
+    end
+end
+z = m';
+end
+
 
 % ratingavg = sum(rating,dimension(1,1));
 % repeat this function but with a different vector to find the average
