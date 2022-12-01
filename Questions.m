@@ -8,27 +8,47 @@ busy = data (:,6);
 dimension = size(data);
 [userday, usermeal] = checkday; %prompts user for meal they're gonna eat and what day
 
-brandyTotVec = sart(1,0,4,data);
-antTotVec = sart(1,1,4,data);
+avgbrandrate = avgrating(0,userday,usermeal,data);
+avgantrate = avgrating(1,userday,usermeal,data);
+%Above 2 calculate the average rating of the user inputted meal on the 
+%specific inputted day
+vegbrand = vegan(0,userday,usermeal,data);
+vegant = vegan(1,userday,usermeal,data);
+%the above two based on the user inputted values, it will also give an average rating of
+%how vegan friendly the meal is
+busbrand = bus(0,userday,usermeal,data);
+busant = bus(1,userday,usermeal,data);
+%The above two give the average ratings of how busy it is in the dining
+%halls
 
-avgbrandrate = sarrtPlaceDay(0,userday,usermeal,data);
-avgantrate = sarrtPlaceDay(1,userday,usermeal,data);
+compare(avgantrate,avgbrandrate,vegbrand,vegant,busbrand,busant);
 
-compare(avgantrate,avgbrandrate);
-
-function compare(a,b)
-if a<b
-    fprintf(['The Brandywine is the better option for this meal (%.1f stars ' ...
-        'compared to %.1f stars at the Anteatery)\n'],b,a)
-elseif a>b
-    fprintf(['The Anteatery is the better option for this meal (%.1f stars ' ...
-        'compared to %.1f stars at the Brandywine)\n'],a,b)
+function compare(a,b,c,d,e,f)
+totb = (a+c-e);
+tota = (b+d-f);
+if (a+c-e)>(b+d-f) %if the total rating of brandy is higher than anteatery,
+%this message will display, giving the user a break down of the ratings as
+%well as including the total rating of the lesser dining hall
+    fprintf(['The Brandywine is the overall better option for this meal (Based off' ...
+        ' 3 criteria):\n meal rating (%.1f/5) - Higher is better\n ' ...
+        'busyness rating (%.1f/1.0) - Lower is better\n' ...
+        ' vegan frendliness (%.1f/1.0) - Higher is better\n' ...
+        ' Brandy rating total: %.1f/5\n' ...
+        ' Ant rating total: %.1f/5\n'],a,e,c,totb,tota)
+elseif (a+c-e)<(b+d-f) %same as above but if the anteatery rating is higher
+    fprintf(['The Anteatery is the overall better option for this meal (Based off' ...
+        ' 3 criteria):\n meal rating (%.1f/5) - Higher is better\n ' ...
+        'busyness rating (%.1f/1.0) - Lower is better\n' ...
+        ' vegan frendliness (%.1f/1.0) - Higher is better\n' ...
+        ' Ant rating total: %.1f/5\n' ...
+        ' Brandy rating total: %.1f/5\n'],b,f,d,tota,totb)
 else
-    fprintf('Both dining halls are equally good options\n')
+    fprintf('Both dining halls are equally good options\n') %if the ratings are
+%the exact same, it will just say that both halls are equally as good
 end
 end
 
-function ml = sarrtPlaceDay(place,day,meal,dat)
+function ml = avgrating(place,day,meal,dat)
 % the variables to input is the place, 0 being brandywine and 1 being anteatery
 % for the day, 1 is sunday, 7 is saturday
 m = [1;1];
@@ -37,7 +57,8 @@ dimension = size(dat);
 for i = 1:dimension(1,1)
 % the for loop will continue for the number of rows that the data is long
     if ((dat(i,1) == place)&&(dat(i,3)==meal))&&(dat(i,2)==day)
-    % checks to see whether the hall is brandywine or anteatery AND if the a certain day of the week
+    % checks to see if it matches the place #, meal #, day # match the
+    % values called
         m(counter,1) = dat(i,4);
         % the value of the rating is added to the matrix if it meets those conditions
         counter = counter + 1;
@@ -47,22 +68,42 @@ ml = sum(m)/size(m,1);
 % this matrix is the average of all the ratings of a certain meal at one of the dining halls
 end
 
-function z = sart(col1,search,out,dat)
-% the generic search function which searches for just one value of one column
-% and will return the 'search' value in the 'out' column
+function ml = vegan(place,day,meal,dat)
+% the variables to input is the place, 0 being brandywine and 1 being anteatery
+% for the day, 1 is sunday, 7 is saturday
 m = [1;1];
 counter = 1;
 dimension = size(dat);
 for i = 1:dimension(1,1)
 % the for loop will continue for the number of rows that the data is long
-    if dat(i,col1) == search
-    % checks the variable column for a certain value
-        m(counter,1) = dat(i,out);
-        % when the condition is met, it returns a certain value of a column
+    if ((dat(i,1) == place)&&(dat(i,3)==meal))&&(dat(i,2)==day)
+        m(counter,1) = dat(i,5);
+        % the value of the vegan frendliness rating is added to the matrix if it meets those conditions
         counter = counter + 1;
     end
 end
-z = m';
+ml = sum(m)/size(m,1);
+% this matrix is the average of all the vegan ratings of one dining hall
+% for a specific meal and day
+end
+
+function ml = bus(place,day,meal,dat)
+% the variables to input is the place, 0 being brandywine and 1 being anteatery
+% for the day, 1 is sunday, 7 is saturday
+m = [1;1];
+counter = 1;
+dimension = size(dat);
+for i = 1:dimension(1,1)
+% the for loop will continue for the number of rows that the data is long
+    if ((dat(i,1) == place)&&(dat(i,3)==meal))&&(dat(i,2)==day)
+        m(counter,1) = dat(i,6);
+        % the value of the rating of busyness is added to the matrix if it meets those conditions
+        counter = counter + 1;
+    end
+end
+ml = sum(m)/size(m,1);
+% this matrix is the average of all the ratings of busyness in a dining
+% hall
 end
 
 function [userday,usermeal] = checkday
