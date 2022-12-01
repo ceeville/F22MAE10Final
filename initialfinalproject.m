@@ -6,65 +6,82 @@ nomeat = data(:,6);
 busy = data (:,7);
 dimension = size(data);
 % want to know the total size of our data
-% need to create a while loop which will check the day and create a vector
-% based off of the day
+% need to create a loop which will check the day and create a vector
+% based off of the day, or other variables
 
 
-function ml = sarrtPlaceMeal(place,day,meal)
-data = readmatrix("eat.dat");
+function ml = sarrtPlaceMeal(place,meal)
+% the variables to input is the place, 0 being brandywine and 1 being anteatery
+% for the meal 0 is breakfast, 3 being late night
+% this function will automatically return the all the ratings of a meal at a dining hall
 m = [1;1];
+% initializing the matrix
 counter = 1;
-dim = size(data);
-for i = 1:dim(1,1)
+% this counter prevents blank rows of zeros from being created in the new matrices
+for i = 1:dimension(1,1)
+% the for loop will continue for the number of rows that the data is long
     if (data(i,1) == place)&&(data(i,3)==meal)
+    % checks to see whether the hall is brandywine or anteatery AND if the meal is breakfast, lunch, etc
         m(counter,1) = data(i,4);
+        % the value of the rating is added to the matrix if it meets those conditions
         counter = counter + 1;
     end
 end
 ml = sum(m)/size(m,1);
+% this matrix is the average of all the ratings of a certain meal at one of the dining halls
 end
 
 
 
 function ml = sarrtPlaceDay(place,day)
-data = readmatrix("eat.dat");
+% the variables to input is the place, 0 being brandywine and 1 being anteatery
+% for the day, 1 is sunday, 7 is saturday
 m = [1;1];
 counter = 1;
-dim = size(data);
-for i = 1:dim(1,1)
+for i = 1:dimension(1,1)
+% the for loop will continue for the number of rows that the data is long
     if (data(i,1) == place)&&(data(i,2)==day)
+    % checks to see whether the hall is brandywine or anteatery AND if the a certain day of the week
         m(counter,1) = data(i,4);
+        % the value of the rating is added to the matrix if it meets those conditions
         counter = counter + 1;
     end
 end
 ml = sum(m)/size(m,1);
+% this matrix is the average of all the ratings of a certain meal at one of the dining halls
 end
 
 
 function ml = sarrrt(place,day,meal)
-data = readmatrix("eat.dat");
 m = [1;1];
 counter = 1;
-dim = size(data);
-for i = 1:dim(1,1)
+for i = 1:dimension(1,1)
+% the for loop will continue for the number of rows that the data is long
     if (data(i,1) == place)&&(data(i,2)==day)&&(data(i,3)==meal)
+    % checks the hall, the day, AND the meal
         m(counter,1) = data(i,4);
+        % the value of the rating is added to the matrix if it meets those conditions
         counter = counter + 1;
     end
 end
 ml = sum(m)/size(m,1);
+% this matrix is the average of all the ratings of a certain meal at one of the dining halls on a certain day
 end
 
 
 
 function z = sart(col1,search,out)
-data = readmatrix("eat.dat");
+% the generic search function which searches for just one value of one column
+% and will return the 'search' value in the 'out' column
 m = [1;1];
 counter = 1;
 dimension = size(data);
 for i = 1:dimension(1,1)
+% the for loop will continue for the number of rows that the data is long
     if data(i,col1) == search
+    % checks the variable column for a certain value
         m(counter,1) = data(i,out);
+        % when the condition is met, it returns a certain value of a column
         counter = counter + 1;
     end
 end
